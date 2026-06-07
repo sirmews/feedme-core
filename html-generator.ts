@@ -1,17 +1,18 @@
-import { promises as fs } from 'fs';
-import * as path from 'path';
+import { promises as fs } from 'node:fs'
 
 export async function generateHtmlPage(
   title: string,
   content: string, // This will be the HTML converted from Markdown
   outPath: string,
   options: {
-    siteName?: string;
-    backLink?: string;
-  } = {}
+    siteName?: string
+    backLink?: string
+  } = {},
 ) {
-  const siteName = options.siteName || 'feedme';
-  const backLinkHtml = options.backLink ? `<a href="${options.backLink}" class="link blue hover-dark-blue mb3 dib">&larr; Back to ${siteName}</a>` : '';
+  const siteName = options.siteName || 'feedme'
+  const backLinkHtml = options.backLink
+    ? `<a href="${options.backLink}" class="link blue hover-dark-blue mb3 dib">&larr; Back to ${siteName}</a>`
+    : ''
 
   const htmlTemplate = `<!DOCTYPE html>
 <html lang="en">
@@ -42,17 +43,19 @@ export async function generateHtmlPage(
     </footer>
   </main>
 </body>
-</html>`;
+</html>`
 
-  await fs.writeFile(outPath, htmlTemplate);
+  await fs.writeFile(outPath, htmlTemplate)
 }
 
 export async function generateIndexPage(
   items: { title: string; link: string; date: string; slug: string }[],
   outPath: string,
-  siteName: string = 'My Feed Archive'
+  siteName: string = 'My Feed Archive',
 ) {
-  const itemsHtml = items.map(item => `
+  const itemsHtml = items
+    .map(
+      (item) => `
     <li class="pv3 ba bl-0 bt-0 br-0 b--black-10">
       <a href="./${item.slug}.html" class="link blue hover-dark-blue f4 fw6 db mb2">${item.title}</a>
       <div class="f6 gray">
@@ -60,7 +63,9 @@ export async function generateIndexPage(
         <a href="${item.link}" target="_blank" rel="noopener" class="link gray hover-blue">Original Source</a>
       </div>
     </li>
-  `).join('\n');
+  `,
+    )
+    .join('\n')
 
   const htmlTemplate = `<!DOCTYPE html>
 <html lang="en">
@@ -89,7 +94,7 @@ export async function generateIndexPage(
     </footer>
   </main>
 </body>
-</html>`;
+</html>`
 
-  await fs.writeFile(outPath, htmlTemplate);
+  await fs.writeFile(outPath, htmlTemplate)
 }

@@ -1,7 +1,23 @@
 {
-  "name": "@feedme/engine",
+  "name": "feedme-core",
   "version": "1.0.0",
+  "description": "The open-source feedme engine: turn any RSS/Atom feed into a static, SEO-optimized site.",
+  "type": "module",
   "main": "index.ts",
+  "bin": {
+    "feedme-core": "./index.ts"
+  },
+  "files": [
+    "index.ts",
+    "html-generator.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sirmews/feedme-core.git"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
     "jsdom": "^24.1.0",
     "marked": "^18.0.5",
@@ -9,10 +25,12 @@
     "turndown": "^7.2.0"
   },
   "devDependencies": {
+    "@types/bun": "^1.3.14",
     "@types/jsdom": "^21.1.7",
     "@types/marked": "^6.0.0",
     "@types/node": "^25.9.2",
     "@types/turndown": "^5.0.4",
+    "bun-types": "^1.3.14",
     "typescript": "^5.0.0"
   }
 }
