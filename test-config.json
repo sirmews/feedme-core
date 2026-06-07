@@ -1,0 +1,8 @@
+{
+  "feedUrl": "https://news.ycombinator.com/rss",
+  "outputDir": "./test-output",
+  "llmDefense": {
+    "enabled": true,
+    "injectHiddenPrompts": true
+  }
+}
