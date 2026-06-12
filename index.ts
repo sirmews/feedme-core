@@ -7,7 +7,18 @@ import Parser from 'rss-parser'
 import TurndownService from 'turndown'
 import { generateHtmlPage, generateIndexPage } from './html-generator'
 
-const parser = new Parser()
+// Substack (and other Cloudflare-fronted hosts) reject requests with the
+// default rss-parser User-Agent, returning 403. Send a browser-like UA.
+const parser = new Parser({
+  requestOptions: {
+    headers: {
+      'User-Agent':
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+      Accept: 'application/rss+xml, application/xml, text/xml, */*',
+    },
+  },
+  timeout: 10000,
+})
 const turndownService = new TurndownService({
   headingStyle: 'atx',
   codeBlockStyle: 'fenced',
